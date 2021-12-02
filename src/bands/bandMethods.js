@@ -36,6 +36,15 @@ exports.searchBands = async (bandObj) => {
     }
 };
 
+exports.updateBand = async (bandObj) => {
+    try {
+        await Band.updateOne({ artist: bandObj.artist }, { [bandObj.key]: bandObj.newData });
+        console.log(`Updated the ${bandObj.key} of ${bandObj.artist} to ${bandObj.newData}`);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 exports.deleteBand = async (bandObj) => {
     try {
         const result = await Band.deleteMany({ artist: bandObj });
@@ -43,4 +52,4 @@ exports.deleteBand = async (bandObj) => {
     } catch (error) {
         console.log(error);
     }
-}
+};

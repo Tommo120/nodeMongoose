@@ -2,7 +2,7 @@ require("./db/connection.js");
 
 const yargs = require("yargs");
 
-const { addBand, listBands, searchBands, deleteBand } = require("./bands/bandMethods.js");
+const { addBand, listBands, searchBands, deleteBand, updateBand } = require("./bands/bandMethods.js");
 
 const app = async (args) => {
     const command = process.argv[2];
@@ -16,6 +16,9 @@ const app = async (args) => {
             break;
         case "search":
             searchBands(args.parameter);
+            break;
+        case "update":
+            updateBand({artist: args.artist, key: args.field, newData: args.newData});
             break;
         case "delete":
             deleteBand(args.artist);
