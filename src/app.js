@@ -23,11 +23,9 @@ const app = async (args) => {
                     artists.push(new BandObject(args.artist[i], args.members[i], args.genre[i]));
                 })
                 addBand(artists);
-                console.log("Multiple Artists");
             } else {
                 artists.push(new BandObject(args.artist, args.members, args.genre))
                 addBand(artists);
-                console.log("Single Artist");
             }
             break;
         case "list":
