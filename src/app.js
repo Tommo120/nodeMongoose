@@ -4,12 +4,31 @@ const yargs = require("yargs");
 
 const { addBand, listBands, searchBands, deleteBand, updateBand } = require("./bands/bandMethods.js");
 
+class BandObject {
+    constructor(artist, members, genre) {
+        this.artist = artist;
+        this.members = members;
+        this.genre = genre;
+    }
+}
+
 const app = async (args) => {
     const command = process.argv[2];
 
     switch(command.toLowerCase()) {
         case "add":
-            addBand({ artist: args.artist, members: args.members, genre: args.genre });
+            let artists = [];
+            if(Array.isArray(args.artist)) {
+                args.artist.forEach((a, i) => {
+                    artists.push(new BandObject(args.artist[i], args.members[i], args.genre[i]));
+                })
+                addBand(artists);
+                console.log("Multiple Artists");
+            } else {
+                artists.push(new BandObject(args.artist, args.members, args.genre))
+                addBand(artists);
+                console.log("Single Artist");
+            }
             break;
         case "list":
             listBands();
@@ -19,6 +38,9 @@ const app = async (args) => {
             break;
         case "update":
             updateBand({artist: args.artist, key: args.field, newData: args.newData});
+            break;
+        case "addbandmembers":
+            //do nothing, function not implemented
             break;
         case "delete":
             deleteBand(args.artist);

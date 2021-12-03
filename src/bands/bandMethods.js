@@ -2,9 +2,11 @@ const Band = require("./bandModels.js");
 
 exports.addBand = async (bandObj) => {
     try {
-        const band = await new Band(bandObj);
-        await band.save();
-        console.log(`${band.artist} has been added to the database`);
+        bandObj.forEach(async (obj) => {
+            const band = await new Band(obj);
+            await band.save();
+            console.log(`${band.artist} has been added to the database`);
+        });
     } catch (error) {
         console.log(error);
     }
@@ -21,8 +23,6 @@ exports.listBands = async () => {
 
 exports.searchBands = async (bandObj) => {
     try {
-        // WTF am I doing
-        // Where database?!
         const results = await Band.find({$text: {$search: bandObj}});
         if (results.length > 0) {
             for(let i = 0; i < results.length; i++) {
@@ -40,6 +40,15 @@ exports.updateBand = async (bandObj) => {
     try {
         await Band.updateOne({ artist: bandObj.artist }, { [bandObj.key]: bandObj.newData });
         console.log(`Updated the ${bandObj.key} of ${bandObj.artist} to ${bandObj.newData}`);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.addBandMembers = async (bandobj) => {
+    // Unfinished function, fix later
+    try {
+        await Band.updateOne({ artist: bandObj.artist }, )
     } catch (error) {
         console.log(error);
     }
