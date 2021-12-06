@@ -45,15 +45,6 @@ exports.updateBand = async (bandObj) => {
     }
 };
 
-exports.addBandMembers = async (bandobj) => {
-    // Unfinished function, fix later
-    try {
-        await Band.updateOne({ artist: bandObj.artist }, )
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 exports.deleteBand = async (bandObj) => {
     try {
         const result = await Band.deleteMany({ artist: bandObj });

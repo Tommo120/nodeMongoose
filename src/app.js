@@ -37,9 +37,6 @@ const app = async (args) => {
         case "update":
             updateBand({artist: args.artist, key: args.field, newData: args.newData});
             break;
-        case "addbandmembers":
-            //do nothing, function not implemented
-            break;
         case "delete":
             deleteBand(args.artist);
             break;
